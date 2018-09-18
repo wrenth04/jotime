@@ -1,0 +1,16 @@
+{
+  "name": "jotime",
+  "version": "0.0.1",
+  "description": "jotime LINE",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ."
+  },
+  "dependencies": {
+    "@line/bot-sdk": "^5.0.0",
+    "axios": "^0.18.0",
+    "cheerio": "^1.0.0-rc.2",
+    "express": "^4.16.3",
+    "md5": "^2.2.1"
+  }
+}
