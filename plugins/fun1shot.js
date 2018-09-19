@@ -12,6 +12,7 @@ function action(uri) {
       const title = $('title').text();
       const imgs = [];
       $('.article_img').each((i, e) => {
+        if(i == 0 || i > 10) return;
         const src = link = $(e).attr('src');
         imgs.push({src, link});
       });
