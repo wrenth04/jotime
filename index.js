@@ -4,8 +4,7 @@ const line = require('@line/bot-sdk');
 const axios = require('axios');
 const cheerio = require('cheerio');
 const express = require('express');
-const ig = require('./ig');
-const ptt = require('./ptt');
+const plugins = require('./plugins')
 
 // create LINE SDK config from env variables
 const config = {
@@ -50,9 +49,6 @@ function handleEvent(event) {
   }
 
   const text = scanHotkeys(event.message);
-  const plugins = [
-    ptt, ig, require('./coco02'), require('./fb')
-  ];
 
   for(var i = 0 ; i < plugins.length ; i++) {
     const {filter, action} = plugins[i];
@@ -64,7 +60,7 @@ function handleEvent(event) {
 }
 
 // listen on port
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 1234;
 app.listen(port, () => {
   console.log(`listening on ${port}`);
 });
