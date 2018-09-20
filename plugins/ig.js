@@ -1,7 +1,7 @@
 const axios = require('axios');
 const md5 = require('md5');
 const cheerio = require('cheerio');
-const imgwall = require('./imgwall');
+const {imgwall} = require('./utils');
 
 const QUERY_HASH = '42323d64886122307be10013ad2dcc44';
 

@@ -1,6 +1,6 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
-const imgwall = require('./imgwall');
+const {imgwall} = require('./utils');
 
 const filter = 'ck101';
 module.exports = {filter, action};
@@ -17,6 +17,17 @@ function action(uri) {
         imgs.push({src, link});
       });
 
+      const igs = [];
+      $('a').each((i, e) => {
+        const link = $(e).attr('href');
+        if(!link || link.indexOf('instagram.com') == -1) return;
+        igs.push(link);
+      });
+
+      if(igs.length > 0) {
+        imgs[0].text = 'ig';
+        imgs[0].link = igs[0];
+      }
       return {title, imgs};
     })
     .then(imgwall);

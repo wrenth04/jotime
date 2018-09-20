@@ -1,8 +1,6 @@
 'use strict';
 
 const line = require('@line/bot-sdk');
-const axios = require('axios');
-const cheerio = require('cheerio');
 const express = require('express');
 const plugins = require('./plugins')
 

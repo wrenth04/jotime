@@ -1,4 +1,6 @@
 
+module.exports = {imgwall};
+
 /*
   input: 
   {
@@ -10,7 +12,7 @@
     }]
   }
 */
-module.exports = ({imgs=[], title=""}) => {
+function imgwall({imgs=[], title=""}) {
   var cols = [];
   for(var i = 0 ; i < Math.min(10, imgs.length); i++) {
     cols.push({

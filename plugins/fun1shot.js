@@ -1,6 +1,6 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
-const imgwall = require('./imgwall');
+const {imgwall} = require('./utils');
 
 const filter = 'fun1shot';
 module.exports = {filter, action};
