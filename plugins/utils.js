@@ -22,7 +22,7 @@ function findLinks($) {
     const link = $(e).attr('href') || '';
 
     if(link.indexOf('instagram.com') != -1 && link.indexOf('/p/') == -1)
-      links.push({type: 'ig', link: link});
+      links.push({type: 'instagram', link: link});
 
     if(link.indexOf('twitter.com') != -1)
       links.push({type: 'twitter', link});
@@ -55,14 +55,25 @@ function imgwall({imgs=[], title="", links=[]}) {
 
   for(var i = 0 ; i < Math.min(10, imgs.length); i++) {
     const label = imgs[i].text;
-    cols.push({
-      "imageUrl": imgs[i].src || imgs[i],
-      "action": {
-        "type": "uri",
-        label,
-        "uri": imgs[i].link || title
-      }
-    });
+    if(['instagram'].indexOf(label) != -1) {
+      cols.push({
+        "imageUrl": imgs[i].src || imgs[i],
+        "action": {
+          "type": "message",
+          label,
+          "text": imgs[i].link || title
+        }
+      });
+    } else {
+      cols.push({
+        "imageUrl": imgs[i].src || imgs[i],
+        "action": {
+          "type": "uri",
+          label,
+          "uri": imgs[i].link || title
+        }
+      });
+    }
   }
   return {
     "type": "template",
