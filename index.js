@@ -30,7 +30,8 @@ app.post('/callback', line.middleware(config), (req, res) => {
 });
 
 const hotkeys = {
-  'jig': 'https://www.instagram.com/modela_asia'
+  'jig': 'https://www.instagram.com/modela_asia',
+  'jstudy': 'https://softnshare.com/category/freecourse/'
 };
 
 function scanHotkeys({text}) {
