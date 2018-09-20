@@ -69,7 +69,9 @@ function websiteBtn({website, room, profile}) {
     uri = 'https://www.facebook.com/' + w.split('fb:')[1].replace(/ /g, '');
   }
 
-  return {
+  return label == 'profile' ? {
+    type: 'message', label, text: uri
+  } : {
     type: 'uri', label, uri
   };
 }

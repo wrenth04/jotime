@@ -16,7 +16,6 @@ function action(uri) {
         count: 10,
         beforeTime: Math.floor(Date.now()/1000)
       };
-      console.log(data);
       return axios.post('https://api-dsa.17app.co/apiGateWay', {cypher: '0_v2', data: JSON.stringify(data)})
     })
     .then(res => JSON.parse(res.data.data))
