@@ -19,6 +19,7 @@ function action(uri) {
         picture,
         room: `https://17.media/share/live/${roomID}`,
         name: displayName,
+        roomID,
         bio,
         website: website.replace(/.*http/, 'http')
       };
@@ -28,16 +29,16 @@ function action(uri) {
       altText: '17media hot',
       template: {
         type: 'carousel',
-        columns: data.map(({name, bio, website, cover, rtmp, room}) => ({
+        columns: data.map(({name, bio, website, cover, rtmp, room, roomID}) => ({
           text: name,
           thumbnailImageUrl: cover,
           actions: [{
             type: 'uri',
-            label: 'room',
+            label: `room(${roomID})`,
             uri: room
           }, {
             type: 'uri',
-            label: 'live',
+            label: 'live stream',
             uri: rtmp 
           }, {
             type: 'uri',
