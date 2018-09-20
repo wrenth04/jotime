@@ -11,7 +11,7 @@ function action(uri) {
     .then($ => {
       const title = $('title').text();
       const imgs = [];
-      $('#main-content a').each((i, e) => {
+      $('#main-content>a').each((i, e) => {
         const href = $(e).attr('href');
         if(href.indexOf('imgur') == -1) return;
         const id = href.split('/')[3].split('.')[0];
