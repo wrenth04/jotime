@@ -1,7 +1,16 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
 
-module.exports = {imgwall, findLinks, $};
+module.exports = {imgwall, findLinks, $, debug, ssl};
+
+function ssl(url = '') {
+  return 'https://ssl-proxy.my-addr.org/myaddrproxy.php/' + url.replace(':/', '');
+}
+
+function debug(data) {
+  console.log(JSON.stringify(data, null, 2));
+  return data;
+}
 
 function $(uri) {
   return axios.get(uri).then(res => cheerio.load(res.data));
