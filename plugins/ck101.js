@@ -1,15 +1,12 @@
-const axios = require('axios');
-const cheerio = require('cheerio');
-const {imgwall, findIg} = require('./utils');
+const {$, imgwall, findLinks} = require('./utils');
 
 const filter = 'ck101';
 module.exports = {filter, action};
 
 function action(uri) {
-  return axios.get(uri)
-    .then(res => cheerio.load(res.data))
-    .then(findIg)
-    .then(({$, igs}) => {
+  return $(uri)
+    .then(findLinks)
+    .then(({$, links}) => {
       const title = $('meta[property="og:title"]').attr('content');
       const imgs = [];
       $('img[itemprop="image"]').each((i, e) => {
@@ -22,7 +19,7 @@ function action(uri) {
       last.text = 'view more';
       last.link = uri;
 
-      return {title, imgs, igs};
+      return {title, imgs, links};
     })
     .then(imgwall);
 }

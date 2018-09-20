@@ -1,14 +1,12 @@
-const axios = require('axios');
-const cheerio = require('cheerio');
-const {imgwall} = require('./utils');
+const {$, imgwall, findLinks} = require('./utils');
 
 const filter = 'www.coco0';
 module.exports = {filter, action};
 
 function action(uri) {
-  return axios.get(uri)
-    .then(res => cheerio.load(res.data))
-    .then($ => {
+  return $(uri)
+    .then(findLinks)
+    .then(({$, links}) => {
       const title = $('title').text();
       const imgs = [];
       $('.p-img img').each((i, e) => {
@@ -18,7 +16,7 @@ function action(uri) {
         if(src.indexOf('coco01') == -1) return;
         imgs.push({src, link: src});
       });
-      return {title, imgs};
+      return {title, imgs, links};
     })
     .then(imgwall);
 }

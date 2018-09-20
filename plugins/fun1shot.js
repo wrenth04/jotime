@@ -1,14 +1,12 @@
-const axios = require('axios');
-const cheerio = require('cheerio');
-const {imgwall} = require('./utils');
+const {$, imgwall, findLinks} = require('./utils');
 
 const filter = 'fun1shot';
 module.exports = {filter, action};
 
 function action(uri) {
-  return axios.get(uri)
-    .then(res => cheerio.load(res.data))
-    .then($ => {
+  return $(uri)
+    .then(findLinks)
+    .then(({$, links}) => {
       const title = $('title').text();
       const imgs = [];
       $('.article_img').each((i, e) => {
@@ -17,7 +15,7 @@ function action(uri) {
         imgs.push({src, link});
       });
 
-      return {title, imgs};
+      return {title, imgs, links};
     })
     .then(imgwall);
 }

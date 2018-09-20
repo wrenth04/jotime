@@ -1,14 +1,12 @@
-const axios = require('axios');
-const cheerio = require('cheerio');
-const {imgwall} = require('./utils');
+const {$, imgwall, findLinks} = require('./utils');
 
 const filter = 'www.ptt.cc/bbs';
 module.exports = {filter, action};
 
 function action(uri) {
-  return axios.get(uri, {headers: {cookie: 'over18=1'}})
-    .then(res => cheerio.load(res.data))
-    .then($ => {
+  return $(uri)
+    .then(findLinks)
+    .then(({$, links}) => {
       const title = $('title').text();
       const imgs = [];
       $('#main-content>a').each((i, e) => {
@@ -21,7 +19,7 @@ function action(uri) {
         });
       });
 
-      return {title, imgs};
+      return {title, imgs, links};
     })
     .then(imgwall);
 }

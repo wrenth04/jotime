@@ -1,14 +1,24 @@
+const axios = require('axios');
+const cheerio = require('cheerio');
 
-module.exports = {imgwall, findIg};
+module.exports = {imgwall, findLinks, $};
 
-function findIg($) {
-  const igs = [];
+function $(uri) {
+  return axios.get(uri).then(res => cheerio.load(res.data));
+}
+
+function findLinks($) {
+  const links = [];
   $('a').each((i, e) => {
-    const href = $(e).attr('href') || '';
-    if(href.indexOf('instagram.com') == -1 || href.indexOf('/p/') != -1) return;
-    igs.push(href);
+    const link = $(e).attr('href') || '';
+
+    if(link.indexOf('instagram.com') != -1 && link.indexOf('/p/') == -1)
+      links.push({type: 'ig', link: link});
+
+    if(link.indexOf('twitter.com') != -1)
+      links.push({type: 'twitter', link});
   });
-  return {$, igs};
+  return {$, links};
 }
 
 /*
@@ -20,13 +30,16 @@ function findIg($) {
       src: 'img url max to 1024x1024',
       link: 'img link'
     }],
-    igs: ['ig link']
+    links: [{
+      type: 'link site',
+      link: 'link',
+    }]
   }
 */
-function imgwall({imgs=[], title="", igs=[]}) {
-  if(igs.length > 0) {
-    imgs[0].text = 'ig';
-    imgs[0].link = igs[0];
+function imgwall({imgs=[], title="", links=[]}) {
+  for(var i = 0; i < Math.min(imgs.length, links.length); i++) {
+    imgs[i].text = links[i].type;
+    imgs[i].link = links[i].link;
   }
 
   const cols = [];
