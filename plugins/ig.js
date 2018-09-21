@@ -63,7 +63,7 @@ function home(uri) {
       const tag = tags[0].replace('@', '').split(' ')[0];
       const link = 'https://www.instagram.com/' + tag;
       const text = tag.length < 12 ? tag : tag.substring(0, 9) + '...';
-      return {src, link, text};
+      return {src, link, text, type: 'instagram'};
     }
     return {src};
   }))
