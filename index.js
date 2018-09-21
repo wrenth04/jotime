@@ -31,6 +31,7 @@ app.post('/callback', line.middleware(config), (req, res) => {
 
 const hotkeys = {
   'j17': '17app.co',
+  'j101': 'https://v.jav101.com',
   'jig': 'https://www.instagram.com/modela_asia',
   'jstudy': 'https://softnshare.com/category/freecourse/'
 };
