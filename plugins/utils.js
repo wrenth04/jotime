@@ -26,6 +26,9 @@ function findLinks($) {
 
     if(link.indexOf('twitter.com') != -1)
       links.push({type: 'twitter', link});
+
+    if(link.indexOf('facebook.com') != -1)
+      links.push({type: 'facebook', link});
   });
   return {$, links};
 }
