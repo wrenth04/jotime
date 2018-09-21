@@ -1,7 +1,7 @@
 const axios = require('axios');
 const md5 = require('md5');
 const cheerio = require('cheerio');
-const {imgwall} = require('./utils');
+const {imgwall, debug} = require('./utils');
 
 const QUERY_HASH = '42323d64886122307be10013ad2dcc44';
 
@@ -10,8 +10,8 @@ const filter = 'instagram';
 
 module.exports = {filter, action};
 function action(uri) { 
-    return (uri.indexOf('/p/') == -1 ? home(uri) : photo(uri)).then(imgs => imgwall({imgs, title: uri}))
-  }
+  return (uri.indexOf('/p/') == -1 ? home(uri) : post(uri));
+}
 
 function photoold(uri) {
   return axios.get(uri)
@@ -20,10 +20,35 @@ function photoold(uri) {
     .then(img => [{src: img}]);
 }
 
-function photo(uri) {
+function post(uri) {
   return axios.get(uri)
-    .then(res => JSON.parse(res.data.split('_sharedData =')[1].split(';</script>')[0]))
-    .then(json => json.entry_data.PostPage[0].graphql.shortcode_media.edge_sidecar_to_children.edges.map(({node}) => ({src: node.display_url})));
+    .then(res => {
+      const json = JSON.parse(res.data.split('_sharedData =')[1].split(';</script>')[0]);
+      const $ = cheerio.load(res.data);
+      const type = $('meta[property="og:type"]').attr('content');
+      switch(type){
+        case 'video': return video($);
+        case 'instapp:photo': return imgwall({title: uri, imgs:photo(json)});
+      }
+    });
+}
+
+function photo(json){
+  const {shortcode_media} = json.entry_data.PostPage[0].graphql;
+  if(shortcode_media.edge_sidecar_to_children)
+    return shortcode_media.edge_sidecar_to_children.edges.map(({node}) => ({src: node.display_url}));
+  else
+    return [{src: shortcode_media.display_url}];
+}
+
+function video($) {
+  const img = $('meta[property="og:image"]').attr('content');
+  const uri = $('meta[property="og:video"]').attr('content');
+  return {
+    "type": "video",
+    "originalContentUrl": uri,
+    "previewImageUrl": img
+  };
 }
 
 function home(uri) {
@@ -41,7 +66,8 @@ function home(uri) {
       return {src, link, text};
     }
     return {src};
-  }));
+  }))
+  .then(imgs => imgwall({title: uri, imgs}));
 }
 
 function homeold(uri) {
