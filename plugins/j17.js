@@ -1,8 +1,11 @@
 const axios = require('axios');
 const {debug, ssl} = require('./utils');
 
+const hotkeys = {
+  'j17': '17app.co',
+};
 const filter = '17app.co';
-module.exports = {filter, action};
+module.exports = {filter, action, hotkeys};
 
 function action(uri) {
   return axios.post('https://api-dsa.17app.co/api/v1/liveStreams/getSuggestedLiveStreams', {"region":"global","count":10})
@@ -45,7 +48,7 @@ function action(uri) {
           ]
         }))
       }
-    }));
+    })).then(debug);
 }
 
 function websiteBtn({website, room, profile}) {

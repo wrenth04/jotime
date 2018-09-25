@@ -2,7 +2,7 @@
 
 const line = require('@line/bot-sdk');
 const express = require('express');
-const plugins = require('./plugins')
+const {hotkeys, plugins} = require('./plugins')
 
 // create LINE SDK config from env variables
 const config = {
@@ -28,13 +28,6 @@ app.post('/callback', line.middleware(config), (req, res) => {
       res.status(500).end();
     });
 });
-
-const hotkeys = {
-  'j17': '17app.co',
-  'j101': 'https://v.jav101.com',
-  'jig': 'https://www.instagram.com/modela_asia',
-  'jstudy': 'https://softnshare.com/category/freecourse/'
-};
 
 function scanHotkeys({text}) {
   return hotkeys[text] || text;

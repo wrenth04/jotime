@@ -6,9 +6,12 @@ const {imgwall, debug} = require('./utils');
 const QUERY_HASH = '42323d64886122307be10013ad2dcc44';
 
 // 'https://www.instagram.com/' + username
+const hotkeys = {
+  'jig': 'https://www.instagram.com/modela_asia',
+};
 const filter = 'instagram';
+module.exports = {filter, action, hotkeys};
 
-module.exports = {filter, action};
 function action(uri) { 
   return (uri.indexOf('/p/') == -1 ? home(uri) : post(uri));
 }

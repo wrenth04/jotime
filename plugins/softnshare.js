@@ -1,7 +1,10 @@
 const {$, imgwall, findLinks} = require('./utils');
 
+const hotkeys = {
+  'jstudy': 'https://softnshare.com/category/freecourse/'
+};
 const filter = 'softnshare.com';
-module.exports = {filter, action};
+module.exports = {filter, action, hotkeys};
 
 function action(uri) {
   return $(uri)

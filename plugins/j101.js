@@ -1,7 +1,10 @@
 const {$, imgwall, debug} = require('./utils');
 
+const hotkeys = {
+  'j101': 'https://v.jav101.com',
+};
 const filter = 'jav101';
-module.exports = {filter, action};
+module.exports = {filter, action, hotkeys};
 
 function action(uri) {
   return $(uri)
