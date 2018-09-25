@@ -3,12 +3,10 @@
 const line = require('@line/bot-sdk');
 const express = require('express');
 const {hotkeys, plugins} = require('./plugins')
+const {channelAccessToken, channelSecret, port} = require('./config');
 
 // create LINE SDK config from env variables
-const config = {
-  channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN,
-  channelSecret: process.env.CHANNEL_SECRET,
-};
+const config = {channelAccessToken, channelSecret};
 
 // create LINE SDK client
 const client = new line.Client(config);
@@ -54,7 +52,6 @@ function handleEvent(event) {
 }
 
 // listen on port
-const port = process.env.PORT || 1234;
 app.listen(port, () => {
   console.log(`listening on ${port}`);
 });
