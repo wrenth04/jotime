@@ -1,7 +1,26 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
+const {dbHost, channelAccessToken} = require('../config');
 
-module.exports = {imgwall, findLinks, $, debug, ssl};
+module.exports = {imgwall, findLinks, $, debug, ssl, pushMsg, dbInstance};
+
+function dbInstance(tag) {
+  if(!tag) return null;
+  const host = `${dbHost}plugins/${tag}`;
+  return {
+    put: ({path='', json={}}) => axios.patch(`${host}/${path}.json`, json),
+    get: (path='') => axios.get(`${host}/${path}.json`).then(res => res.data)
+  };
+}
+
+function pushMsg(to, msg) {
+  if(!to || !msg) return;
+  const json = {
+    to,
+    messages: [msg]
+  };
+  return axios.post('https://api.line.me/v2/bot/message/push', json, {headers: {Authorization: `Bearer ${channelAccessToken}`}}).then(res => res.data);
+}
 
 function ssl(url = '') {
   return 'https://ssl-proxy.my-addr.org/myaddrproxy.php/' + url.replace(':/', '');
