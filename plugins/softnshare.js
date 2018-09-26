@@ -25,8 +25,10 @@ function daemon() {
 
 function isNew(uri) {
   const check = data.last != uri;
-  if(check)
+  if(check) {
     db.put({json: {last: uri}});
+    data.last = uri;
+  }
   return check;
 }
 
