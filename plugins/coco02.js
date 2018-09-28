@@ -1,4 +1,4 @@
-const {$, imgwall, findLinks} = require('./utils');
+const {viewMore, $, imgwall, findLinks} = require('./utils');
 
 const filter = 'www.coco0';
 module.exports = {filter, action};
@@ -18,5 +18,6 @@ function action(uri) {
       });
       return {title, imgs, links};
     })
+    .then(viewMore(uri))
     .then(imgwall);
 }

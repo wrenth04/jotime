@@ -1,4 +1,4 @@
-const {$, imgwall, findLinks} = require('./utils');
+const {viewMore, $, imgwall, findLinks} = require('./utils');
 
 const filter = 'fun1shot';
 module.exports = {filter, action};
@@ -17,5 +17,6 @@ function action(uri) {
 
       return {title, imgs, links};
     })
+    .then(viewMore(uri))
     .then(imgwall);
 }

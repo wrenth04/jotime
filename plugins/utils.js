@@ -2,7 +2,18 @@ const axios = require('axios');
 const cheerio = require('cheerio');
 const {dbHost, channelAccessToken} = require('../config');
 
-module.exports = {imgwall, findLinks, $, debug, ssl, pushMsg, dbInstance};
+module.exports = {viewMore, imgwall, findLinks, $, debug, ssl, pushMsg, dbInstance};
+
+function viewMore(uri) {
+  return (data) => {
+    const {imgs} = data;
+    if(!imgs) return data;
+    const last = imgs[Math.min(imgs.length - 1, 9)];
+    last.text = 'view more';
+    last.link = uri;
+    return data;
+  };
+}
 
 function dbInstance(tag) {
   if(!tag) return null;

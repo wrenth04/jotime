@@ -1,4 +1,4 @@
-const {ssl, debug, $, imgwall, findLinks} = require('./utils');
+const {viewMore, ssl, debug, $, imgwall, findLinks} = require('./utils');
 
 const filter = 'funnywithyou.life';
 module.exports = {filter, action};
@@ -19,5 +19,6 @@ function action(uri) {
 
       return {title, imgs, links};
     })
+    .then(viewMore(uri))
     .then(imgwall);
 }

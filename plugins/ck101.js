@@ -1,4 +1,4 @@
-const {$, imgwall, findLinks} = require('./utils');
+const {viewMore, $, imgwall, findLinks} = require('./utils');
 
 const filter = 'ck101';
 module.exports = {filter, action};
@@ -15,12 +15,9 @@ function action(uri) {
         imgs.push({src, link});
       });
 
-      const last = imgs.length > 1 ? imgs[imgs.length - 1] : imgs[0];
-      last.text = 'view more';
-      last.link = uri;
-
       return {title, imgs, links};
     })
+    .then(viewMore(uri))
     .then(imgwall);
 }
 

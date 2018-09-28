@@ -1,4 +1,4 @@
-const {$, imgwall, findLinks} = require('./utils');
+const {viewMore, $, imgwall, findLinks} = require('./utils');
 
 const filter = 'www.ptt.cc/bbs';
 module.exports = {filter, action};
@@ -21,5 +21,6 @@ function action(uri) {
 
       return {title, imgs, links};
     })
+    .then(viewMore(uri))
     .then(imgwall);
 }
