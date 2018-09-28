@@ -8,6 +8,7 @@ const QUERY_HASH = '42323d64886122307be10013ad2dcc44';
 // 'https://www.instagram.com/' + username
 const hotkeys = {
   'jig': 'https://www.instagram.com/modela_asia',
+  'jig2': 'https://www.instagram.com/bbmanworld/',
 };
 const filter = 'instagram';
 module.exports = {filter, action, hotkeys};
@@ -62,8 +63,8 @@ function home(uri) {
     const src = node.display_url;
     const tags = node.edge_media_to_caption.edges.map(({node}) => node.text);
     var i = 1;
-    if(tags.length > 0 && tags[0].indexOf('@') == 0) {
-      const tag = tags[0].replace('@', '').split(' ')[0];
+    if(tags.length > 0 && tags[0].indexOf('@') != -1) {
+      const tag = tags[0].split('@')[1].split(' ')[0].split('\n')[0];
       const link = 'https://www.instagram.com/' + tag;
       const text = tag.length < 12 ? tag : tag.substring(0, 9) + '...';
       return {src, link, text, type: 'instagram'};
