@@ -1,7 +1,8 @@
 const {$, imgwall, debug} = require('./utils');
 
 const hotkeys = {
-  'candice': 'https://zh-tw.facebook.com/candice0723/'
+  'candice': 'https://zh-tw.facebook.com/candice0723/',
+  'aries': 'https://zh-tw.facebook.com/aries8248/'
 }
 const filter = 'facebook';
 module.exports = {filter, action, hotkeys};
