@@ -8,9 +8,11 @@ function action(uri) {
     .then($ => {
       const title = $('title').text();
       const imgs = [];
-      $('.usercontent>img').each((i, e) => {
-        if(i > 10 ) return;
-        const src = $(e).attr('src');
+      $('.usercontent img').each((i, e) => {
+        if(imgs.length >= 10 ) return;
+        const $e = $(e);
+        const src = $e.attr('src') || $e.attr('data-original');
+        if(!src) return;
         imgs.push({src: ssl(src), link: src});
       });
 
