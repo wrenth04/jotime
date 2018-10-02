@@ -1,6 +1,7 @@
+const {debug} = require('./utils');
 const j101 = require('./j101');
 
-const filter = 'jav101-';
+const filter = 'j101-';
 module.exports = {filter, action};
 
 function action(msg) {
