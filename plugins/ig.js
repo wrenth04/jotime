@@ -9,6 +9,9 @@ const QUERY_HASH = '42323d64886122307be10013ad2dcc44';
 const hotkeys = {
   'jig': 'https://www.instagram.com/modela_asia',
   'jig2': 'https://www.instagram.com/bbmanworld/',
+  'bbig': 'https://www.instagram.com/bbmanworld/',
+  'jig3': 'https://www.instagram.com/jkftaipei/',
+  'jkfig': 'https://www.instagram.com/jkftaipei/'
 };
 const filter = 'instagram';
 module.exports = {filter, action, hotkeys};
