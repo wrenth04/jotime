@@ -34,6 +34,7 @@ function pushMsg(to, msg) {
 }
 
 function ssl(url = '') {
+  if(url.indexOf('https') == 0) return url;
   return 'https://ssl-proxy.my-addr.org/myaddrproxy.php/' + url.replace(':/', '');
 }
 
