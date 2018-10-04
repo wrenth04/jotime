@@ -48,7 +48,7 @@ function action(uri) {
           ]
         }))
       }
-    })).then(debug);
+    }));
 }
 
 function websiteBtn({website, room, profile}) {
