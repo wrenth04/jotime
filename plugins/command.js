@@ -12,18 +12,17 @@ const hotkeys = {
 const filter = 'command:';
 module.exports = {filter, action, hotkeys};
 
-function action(msg) {
+function action(msg, fromId) {
   const cmd = msg.split(':')[1];
   switch(cmd) {
     case 'lottery': return lottery();
     case 'help': return help();
-    case 'download': return download();
+    case 'download': return download(fromId);
   }
   return null;
 }
 
-function download() {
-  const {fromId} = shareData;
+function download(fromId) {
   const msg = shareData['msg'][fromId];
   return Promise.resolve({
     type: 'text',

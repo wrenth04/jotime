@@ -3,7 +3,7 @@ const cheerio = require('cheerio');
 const {dbHost, channelAccessToken} = require('../config');
 
 const shareData = {
-  fromId: '', msg: {}
+  msg: {}
 };
 
 module.exports = {shareData, viewMore, imgwall, findLinks, $, debug, ssl, pushMsg, dbInstance};

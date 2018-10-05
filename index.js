@@ -42,13 +42,12 @@ function handleEvent(event) {
   }
 
   const fromId = event.source.groupId || event.source.userId;
-  shareData.fromId = fromId;
   
   const text = scanHotkeys(event.message);
 
   for(var i = 0 ; i < plugins.length ; i++) {
     const {filter, action} = plugins[i];
-    if ( text.indexOf(filter) != -1) return action(text)
+    if ( text.indexOf(filter) != -1) return action(text, fromId)
       .then(msg => {
         if(msg.type == 'video') {
           shareData['msg'][fromId] = msg;
