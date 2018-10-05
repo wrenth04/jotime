@@ -3,6 +3,7 @@
 const line = require('@line/bot-sdk');
 const express = require('express');
 const {hotkeys, plugins} = require('./plugins')
+const {shareData} = require('./plugins/utils');
 const {channelAccessToken, channelSecret, port} = require('./config');
 
 // create LINE SDK config from env variables
@@ -40,12 +41,20 @@ function handleEvent(event) {
     return Promise.resolve(null);
   }
 
+  const fromId = event.source.groupId || event.source.userId;
+  shareData.fromId = fromId;
+  
   const text = scanHotkeys(event.message);
 
   for(var i = 0 ; i < plugins.length ; i++) {
     const {filter, action} = plugins[i];
     if ( text.indexOf(filter) != -1) return action(text)
-      .then(msg => client.replyMessage(event.replyToken, msg));
+      .then(msg => {
+        if(msg.type == 'video') {
+          shareData['msg'][fromId] = msg;
+        }
+        client.replyMessage(event.replyToken, msg)
+      });
   }
 
   return null;

@@ -2,7 +2,11 @@ const axios = require('axios');
 const cheerio = require('cheerio');
 const {dbHost, channelAccessToken} = require('../config');
 
-module.exports = {viewMore, imgwall, findLinks, $, debug, ssl, pushMsg, dbInstance};
+const shareData = {
+  fromId: '', msg: {}
+};
+
+module.exports = {shareData, viewMore, imgwall, findLinks, $, debug, ssl, pushMsg, dbInstance};
 
 function viewMore(uri) {
   return (data) => {
