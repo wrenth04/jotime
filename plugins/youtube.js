@@ -1,6 +1,7 @@
 const {$, debug} = require('./utils');
 
 const hotkeys = {
+  'jtube': 'https://www.youtube.com/channel/UCr4ZqhqR6cGVSpxN59gLaZQ',
   '狂新聞': 'https://www.youtube.com/channel/UCVF3bTd3dxM4IfOMFCbNADA',
   '電獺少女': 'https://www.youtube.com/channel/UCAr4MVsPBKjhg5eLDDpbDFg'
 };
@@ -8,7 +9,7 @@ const filter = 'youtube.com/channel';
 module.exports = {filter, action, hotkeys};
 
 function action(uri) {
-  if(uri.indexOf('/videos') == -1)
+  if(uri.indexOf('channel') != -1 && uri.indexOf('/videos') == -1)
     uri = uri.replace(/\/$/,  '') + '/videos';
   return $(uri)
     .then($ => {
@@ -20,7 +21,7 @@ function action(uri) {
         const vid = $e.attr('href').split('v=')[1];
         if(!vid) return;
         videos.push({
-          title: $e.attr('title').substring(0, 100), 
+          title: $e.attr('title').substring(0, 50), 
           image: `https://i.ytimg.com/vi/${vid}/hqdefault.jpg`, 
           link: `https://www.youtube.com/watch?v=${vid}`
         });
@@ -29,7 +30,7 @@ function action(uri) {
     })
     .then(({title, videos}) => ({
       type: 'template',
-      altText: title,
+      altText: title || 'youtube videos',
       template: {
         type: 'carousel',
         columns: videos.map(a => ({
@@ -37,8 +38,12 @@ function action(uri) {
           text: a.title,
           actions: [{
             type: 'uri',
-            label: 'watch',
+            label: 'youtube',
             uri: a.link
+          }, {
+            type: 'message',
+            label: 'line',
+            text: a.link
           }]
         }))
       }
