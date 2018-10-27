@@ -11,7 +11,7 @@ function action(uri) {
       const imgs = [];
       $('.p-img img').each((i, e) => {
         if(i > 10 ) return;
-        const src = $(e).attr('src')
+        let src = $(e).attr('src')
           .replace('coco02', 'coco01');
         if(src.indexOf('coco01') != -1)
           src = src.replace('http', 'https');

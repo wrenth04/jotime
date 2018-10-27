@@ -47,8 +47,8 @@ function debug(data) {
   return data;
 }
 
-function $(uri) {
-  return axios.get(uri).then(res => cheerio.load(res.data));
+function $(uri, opts={}) {
+  return axios.get(uri, opts).then(res => cheerio.load(res.data));
 }
 
 function findLinks($) {
