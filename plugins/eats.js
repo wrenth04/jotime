@@ -1,4 +1,4 @@
-const {pushMsg, dbInstance, viewMore, $, imgwall, findLinks} = require('./utils');
+const {dbInstance} = require('./utils');
 const db = dbInstance('eats');
 const DELAY = 15*60*1000;
 
@@ -38,27 +38,3 @@ function action(uri) {
     });
   });
 }
-
-/*
-{
-      type: 'template',
-      altText: '17media top 10',
-      template: {
-        type: 'carousel',
-        columns: data.map(({name, bio, website, cover, rtmp, room, profile, roomID}) => ({
-          text: name,
-          thumbnailImageUrl: cover,
-          actions: [{
-            type: 'uri',
-            label: `room(${roomID})`,
-            uri: room
-          }, {
-            type: 'uri',
-            label: 'live stream',
-            uri: rtmp 
-          }, websiteBtn({website, room, profile})
-          ]
-        }))
-      }
-    }
-*/
