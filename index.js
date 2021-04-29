@@ -52,7 +52,7 @@ function handleEvent(event) {
         if(msg.type == 'video') {
           shareData['msg'][fromId] = msg;
         }
-        client.replyMessage(event.replyToken, msg)
+        client.replyMessage(event.replyToken, msg);
       });
   }
 

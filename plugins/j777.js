@@ -8,7 +8,7 @@ module.exports = {filter, action, hotkeys};
 
 function action(msg) {
   const keyword = encodeURIComponent(msg.split('-')[1]);
-  return $(`http://www.jav777.cc/?s=${keyword}`)
+  return $(`http://jav777.xyz/?s=${keyword}`)
     .then($ => {
       const imgs = [];
       $('.featured-media').each((i, e) => {

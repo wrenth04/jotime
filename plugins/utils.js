@@ -106,6 +106,7 @@ function imgwall({imgs=[], title="", links=[]}) {
   for(var i = 0 ; i < Math.min(10, imgs.length); i++) {
     const label = imgs[i].text;
     const type = imgs[i].type;
+    if(imgs[i].link && imgs[i].link.indexOf('https') != 0) imgs[i].link = 'https:' + imgs[i].link;
     if(['instagram'].indexOf(label) != -1 || ['instagram'].indexOf(type) != -1) {
       cols.push({
         "imageUrl": imgs[i].src || imgs[i],

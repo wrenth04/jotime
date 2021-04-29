@@ -12,7 +12,9 @@ function action(uri) {
     .then($ => {
       const type = $('meta[property="og:type"]').attr('content');
       switch(type) {
-        case 'video': return video($);
+        case 'video':
+        case 'video.other':
+          return video($);
         case undefined: return fansPage($);
         default: return null;
       }

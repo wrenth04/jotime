@@ -36,7 +36,7 @@ function steamDaemon() {
 }
 
 function action(uri) {
-  return $(uri)
+  return $(uri, {headers: {cookie: 'over18=1'}})
     .then(findLinks)
     .then(({$, links}) => {
       const title = $('title').text();

@@ -1,4 +1,4 @@
-const {viewMore, $, imgwall, findLinks} = require('./utils');
+const {viewMore, $, imgwall, findLinks, debug} = require('./utils');
 
 const filter = 'ck101';
 module.exports = {filter, action};
