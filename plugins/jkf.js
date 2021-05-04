@@ -2,6 +2,7 @@ const {viewMore, $, imgwall, debug} = require('./utils');
 
 const hotkeys = {
   'jkf': 'https://www.jkforum.net/forum-736-1.html',
+  'jkfav': 'https://www.jkforum.net/forum-535-1.html',
 };
 const filter = 'jkforum.net';
 module.exports = {filter, action, hotkeys};
